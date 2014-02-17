@@ -10,7 +10,6 @@
 
 - name: Global composer.json file
   template: src=composer.j2 dest={{ composer_user_home }}/.composer/composer.json owner={{ composer_user }}
-  with_items: composer.json
   tags: [composer, php]
 
 - name: Composer global update
