@@ -4,15 +4,15 @@
   shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
   tags: [composer, php]
 
-- name: Ensure global composer folder
+- name: Create global .composer folder
   file: path={{ composer_user_home }}/.composer owner={{ composer_user }} state=directory
   tags: [composer, php]
 
-- name: Global composer.json file
-  template: src=composer.j2 dest={{ composer_user_home }}/.composer/composer.json owner={{ composer_user }}
+- name: Create global composer.json file
+  file: content="{{ composer_json  | to_nice_json }}" dest={{ composer_user_home }}/.composer/composer.json owner={{ composer_user }}
   tags: [composer, php]
 
-- name: Composer global update
+- name: Install or update global composer packages
   shell: /usr/local/bin/composer global update
   sudo_user: "{{ composer_user }}"
   tags: [composer, php]
