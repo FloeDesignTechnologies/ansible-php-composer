@@ -10,11 +10,8 @@
 
 - name: Create global composer.json file
   template: src=composer.j2 dest={{ composer_user_home }}/.composer/composer.json owner={{ composer_user }}
-  tags: [composer, php]
-
-- name: Install or update global composer packages
-  shell: /usr/local/bin/composer global update
-  sudo_user: "{{ composer_user }}"
+  notify:
+   - composer global update
   tags: [composer, php]
 
 - name: Add global composer bin directory to PATH
