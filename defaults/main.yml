@@ -3,3 +3,4 @@
 
 composer_user: vagrant
 composer_user_home: /home/vagrant
+composer_json: []
