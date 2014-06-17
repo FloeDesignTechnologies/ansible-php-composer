@@ -15,6 +15,10 @@
   tags: [composer, php]
 
 - name: Add global composer bin directory to PATH
-  lineinfile: dest={{composer_user_home}}/.bashrc line="export PATH=~/.composer/vendor/bin:$PATH"
+  lineinfile: dest={{composer_user_home}}/.bashrc line="export PATH=~/.composer/vendor/bin:$PATH" owner={{ composer_user }} group={{ composer_user }}
+  tags: [composer, php]
+
+- name: Add global composer bin directory to PATH
+  lineinfile: dest={{composer_user_home}}/.bashrc line="export PATH={{ composer_path_dir }}:$PATH" owner={{ composer_user }} group={{ composer_user }}
   tags: [composer, php]
 
