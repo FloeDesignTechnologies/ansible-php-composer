@@ -1,7 +1,7 @@
 ---
 
 - name: Install Composer globally
-  shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+  shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f composer.phar {{ composer_path }} creates={{ composer_path }}
   tags: [composer, php]
 
 - name: Create global .composer folder
@@ -19,6 +19,10 @@
   sudo_user: "{{ composer_user }}"
 
 - name: Add global composer bin directory to PATH
-  lineinfile: dest={{composer_user_home}}/.bashrc line="export PATH=~/.composer/vendor/bin:$PATH"
+  lineinfile: dest={{composer_user_home}}/.bashrc line="export PATH=~/.composer/vendor/bin:$PATH" owner={{ composer_user }} group={{ composer_user }}
+  tags: [composer, php]
+
+- name: Add global composer bin directory to PATH
+  lineinfile: dest={{composer_user_home}}/.bashrc line="export PATH={{ composer_path_dir }}:$PATH" owner={{ composer_user }} group={{ composer_user }}
   tags: [composer, php]
 
