@@ -14,7 +14,7 @@
   tags: [composer, php]
 
 - name: Install the composer.json file only if it was updated
-  shell: /usr/local/bin/composer global update --no-interaction --no-ansi
+  shell: "{{ composer_path }} global update --no-interaction --no-ansi"
   when: create_composer_file|changed
   sudo_user: "{{ composer_user }}"
 
