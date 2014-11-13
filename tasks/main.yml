@@ -10,12 +10,13 @@
 
 - name: Create global composer.json file
   template: src=composer.j2 dest={{ composer_user_home }}/.composer/composer.json owner={{ composer_user }}
+  when: composer_json is defined
   register: create_composer_file
   tags: [composer, php]
 
 - name: Install the composer.json file only if it was updated
   shell: /usr/local/bin/composer global update --no-interaction --no-ansi
-  when: create_composer_file|changed
+  when: create_composer_file is defined and create_composer_file|changed
   sudo_user: "{{ composer_user }}"
 
 - name: Add global composer bin directory to PATH
