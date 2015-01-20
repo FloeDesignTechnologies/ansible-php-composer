@@ -1,3 +1,5 @@
+This role is depreacted, use [kosssi.composer](https://galaxy.ansible.com/list#/roles/1119) instead.
+
 Ansible php-composer
 ====================
 
